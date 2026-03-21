@@ -1,10 +1,10 @@
 # 总结
-这次比赛 AB 题能稳定 AC，而 C 题 AC*8，TLE*18，DEFG 题没看。
+这次比赛 AB 题能稳定 AC，而 C 题 AC * 8，TLE * 18，DEFG 题没看。
 # A $\pi$
 ## Knowledge
 考察浮点处理与圆的面积公式。
  
-算法：$\color{red}{\sf{模拟}}$
+算法：模拟
 ## Problem
 给定一个圆的直径 D，求圆的面积，答案相差不大于 $10^{-6}$。
 ## Solve
@@ -24,7 +24,7 @@ int mian(){
 ## Knowledge
 考察二维空间的理解与题意转化。
 
-算法：$\orange{\sf{数学}}$
+算法：数学
 ## Problem
 给定一个 N 行 M 列的巧克力，和 Q 行 query，格式如下：
  
