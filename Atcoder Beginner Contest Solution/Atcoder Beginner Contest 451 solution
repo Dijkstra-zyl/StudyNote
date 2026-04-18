@@ -1,0 +1,110 @@
+# 总结
+ABC451赛后总结：  
+结果：300pts AB题 AC。
+
+客观原因：  
+1. 时间更少，大约20min  
+2. 翻译
+   
+主观原因：  
+1. C题不能在短时间内想出合适的数据结构及处理方法，想到了set但是没有成功处理导致TLE  
+2. B题消耗时间太多（有一部分原因是翻译译得看不懂）  
+
+大概为：红红橙……
+
+::::info[学习到的东西]
+1. 试试用 STL
+2. 抽象问题
+3. 注意边界
+::::
+# A illegal
+考察：入门
+
+输入字符串，然后判断长度是否为 5 的倍数即可。
+
+```cpp
+#include <iostream>
+using namespace std;
+int main(){
+	string s; cin >> s;
+	(s.size() % 5 == 0) ? cout << "Yes" : cout << "No";
+    return 0;
+}
+```
+# B Personnel Change
+考察：数组
+
+给定 $N$ 个员工和 $M$ 个岗位，第 $i$ 名员工本届的岗位为 $a_i$，下一届的岗位为 $b_i$，求每一个岗位下一届比本届人数多了多少？
+
+可以从数组存储每个岗位本届和下一届的人数，然后后者减前者即可。
+
+```cpp
+#include <iostream>
+using namespace std;
+const int N = 110;
+int n,m,part[N][2];
+int main(){
+	cin >> n >> m;
+	for(int i = 1;i <= n;i++){
+		int a,b; cin >> a >> b;
+		part[a][1]++,part[b][2]++;
+	}
+	for(int i = 1;i <= m;i++){
+		cout << part[i][2] - part[i][1] << endl;
+	}
+    return 0;
+}
+```
+# C Understory
+考察：STL
+
+我一开始想到了数组的方法，但是没办法动态调换长度，后来看题解才知道可以用 `priority_queue`，因为小根堆可以让木头按照由小到大的顺序排列，时间复杂度低。
+
+然后写好后有经过了好久的调试（因为 RE，**RE 原因：要先判断是否为空，才能访问 `top`，否则出界**），代码如下：
+::::warning[教训]
+在判断是否为空时，要注意先 `!q.empty()`。
+::::
+::::error[RE代码]
+```
+#include <iostream>
+#include <queue>
+#include <vector>
+using namespace std;
+int q;
+priority_queue<int,vector<int>,greater<int>> p;
+int main(){
+	cin >> q;
+	while(q--){
+		int op,h; cin >> op >> h;
+		if(op == 1) p.push(h);
+		else{
+			while(p.top() <= h && p.size()) p.pop();//RE
+		}
+		cout << p.size() << endl;
+	}
+    return 0;
+}
+```
+::::
+::::success[AC代码]
+```cpp
+#include <iostream>
+#include <queue>
+#include <vector>
+using namespace std;
+int q;
+priority_queue<int,vector<int>,greater<int>> p;
+int main(){
+	cin >> q;
+	while(q--){
+		int op,h; cin >> op >> h;
+		if(op == 1) p.push(h);
+		else{
+			while(p.size() && p.top() <= h) p.pop();
+		}
+		cout << p.size() << endl;
+	}
+    return 0;
+}
+```
+::::
